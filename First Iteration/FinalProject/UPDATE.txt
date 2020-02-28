@@ -1,0 +1,2 @@
+The only thing that we changed from the original design of the project was that we decided to store the cups in an array instead of a linked list for ease of use and to shorten the amount of code. 
+Additionally, we added more methods than earlier planned to be able to utilize the mouse and key listener methods. As well as methods and variables to account for the graphics and images we have used so far in the project. 

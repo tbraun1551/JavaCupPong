@@ -40,7 +40,7 @@ import java.util.ArrayList;
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-public class Main extends JPanel implements KeyListener, ActionListener{
+public class Main extends JPanel implements KeyListener, ActionListener {
     public static final int WIDTH = 610;
     public static final int HEIGHT = 900;
     public static final int FPS = 60;
@@ -82,7 +82,7 @@ public class Main extends JPanel implements KeyListener, ActionListener{
     int compDelay;
 
     
-    public Main(){
+    public Main() {
         addKeyListener(this);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         barX = 305;
@@ -103,24 +103,25 @@ public class Main extends JPanel implements KeyListener, ActionListener{
         shot = false;
         compDelay = 120;
     }
-    public void run(){
-        while(true){
+
+    public void run() {
+        while(true) {
             spee();
-            if (shooting){
+            if (shooting) {
                 evolve();
             }
             compDelayer();
             computer();
             repaint();
             game();
-            try{
+            try {
                 Thread.sleep(1000/FPS);
             }
             catch(InterruptedException e){} 
         }
     }
 
-    public static void main(String[] args){     
+    public static void main(String[] args) {     
         user = new Rack();
         comp = new Rack();
         //Graphics Generator
@@ -135,7 +136,7 @@ public class Main extends JPanel implements KeyListener, ActionListener{
         Main abc = new Main();
     }
   
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         //Paints all the methods for the graphics
         super.paintComponent(g);   
         Graphics2D g2 = (Graphics2D) g; 	
@@ -145,7 +146,7 @@ public class Main extends JPanel implements KeyListener, ActionListener{
         g.drawString("Welcome to CupPong. Designed and created by Paul Jackson and Thomas Braun.", 50, 25);
         g.drawString("Click a number between 0-9 to select which cup you would like to shoot at", 50, 37);
         g.drawString("Pick a number within the given range to shoot.", 50, 49);
-        try{
+        try {
             im = ImageIO.read(new File("redcup.png"));
             imb = ImageIO.read(new File("bluecup.png"));
             bar = ImageIO.read(new File("bar.png"));
@@ -153,7 +154,7 @@ public class Main extends JPanel implements KeyListener, ActionListener{
             splash = ImageIO.read(new File("splash.png"));
             comwin = ImageIO.read(new File("lose.png"));
             youwin = ImageIO.read(new File ("win.png"));
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             // handle exception...
             System.out.println("error");
         }
@@ -173,7 +174,10 @@ public class Main extends JPanel implements KeyListener, ActionListener{
         g.drawLine(barX, 660, barX, 710);
 
         //////////////////////////////////////RACK DRAWER///////////////////////
-        for (int i = 9; i >=0 ; i--){
+        for(cup : user.rac) {
+            System.outt.println("testing this for loop");
+        }
+        for (int i = 9; i >=0 ; i--) {
             if(user.rac[i].alive){
                 ArrayList<Integer> a = locationUSER(user.rac[i].location);
                 int x = a.get(0);
@@ -190,61 +194,61 @@ public class Main extends JPanel implements KeyListener, ActionListener{
             }
         }
         ////////////////////////////////////MISCELLANEOUS DRAWERS///////////////
-        if(!testb){
+        if(!testb) {
             g.setColor(new Color(175, 192, 200));
             g.fillRect(0, 0, 700, 1000);
             g.drawImage(splash, 0, 0, this);
             uTurn = false;
         }
-        if(testb){ 
+        if(testb) { 
             remove(test);
         }
 
-        if(hit){
+        if(hit) {
             g.setColor(new Color(0, 245, 155));
             g.drawString("Congrats, you hit the cup! :-)", 120, 800);
         }
-        if (uTurn){
+        if (uTurn) {
             g.setColor(Color.CYAN);
             g.drawString("It is currently your turn. Select what cup you would like to shoot at", 10, 275);
             g.drawString("by picking a number 0-9 then hit space to shoot.", 10, 287);
             g.drawString("The cups are ordered front to back left to right.", 10, 299);
         }
-        if(cupSelected){
+        if(cupSelected) {
             g.drawString("You have selected cup: " + cup, 10, 780);
         }
-        if(outBounds){
+        if(outBounds) {
             g.drawString("The cup you have selected does not exist. Please try a number between 0 and 9", 10, 792);
         }
-        if(alreadyP){
+        if(alreadyP) {
             g.drawString("You have already hit this cup. Please try again", 10, 792);
         }
-        if(shot && hit){
+        if(shot && hit) {
             shooting = true;
             g.drawImage(ball, sx, sy, 25, 25, this);
             
         }   
-        if (!uTurn){
+        if (!uTurn) {
             g.drawString("Computers turn", 10, 275); 
         }
-        if (cHit){
+        if (cHit) {
             g.setColor(Color.RED);
             g.drawString("The computer hit their last cup", 10, 312);
         }
 
-        if(cWin){
+        if(cWin) {
             g.drawImage(comwin, 0, 0, this);
             g.setColor(Color.BLACK);
             g.drawString("It took you " + (endTime - startTime) + " to win.", 50, 700);
 
          }
-         if(uWin){
+         if(uWin) {
              g.drawImage(youwin, 0, 0, this);
          }
     }
     
 //////////////////////////////////////////////KEYLISTENER METHODS///////////////////////////////
-    public void keyPressed(KeyEvent e){
+    public void keyPressed(KeyEvent e) {
         select(e);
     }
     public void keyReleased(KeyEvent e) {}
@@ -255,71 +259,70 @@ public class Main extends JPanel implements KeyListener, ActionListener{
     }   
 
 //////////////////////////////////////////RETURNS THE LOCATION FOR PRINTING CUPS/////////////////
-    public ArrayList<Integer> locationUSER(int l){
+    public ArrayList<Integer> locationUSER(int l) {
             ArrayList<Integer> a = new ArrayList<Integer>(); 
-            if (l == 1){
+            if (l == 1) {
                 a.add(131);
                 a.add(166);//316
             }
-
-            if (l == 2){
+            if (l == 2) {
                 a.add(159+3);
                 a.add(144);//244
             }
-            if (l == 3){
+            if (l == 3) {
                 a.add(104-3);
                 a.add(144);//244
             }
-            if (l == 4){
+            if (l == 4) {
                 a.add(77-5);
                 a.add(122);//172
             }
-            if (l == 5){
+            if (l == 5) {
                 a.add(132);
                 a.add(122);//172
             }
-            if (l == 6){
+            if (l == 6) {
                 a.add(187+5);
                 a.add(122);//172
             }
-            if (l == 7){
+            if (l == 7) {
                 a.add(50-8); //50
                 a.add(100);//100
             }
-            if (l == 8){
+            if (l == 8) {
                 a.add(105-3); //105
                 a.add(100);
             }
-            if (l == 9){
+            if (l == 9) {
                 a.add(160+3); //160
                 a.add(100);
             }
-            if (l == 10){
+            if (l == 10) {
                 a.add(215+8);
                 a.add(100);
             }
             return a;
     }
-    public ArrayList<Integer> locationCOMP(int l){
+    public ArrayList<Integer> locationCOMP(int l) {
         ArrayList<Integer> a = new ArrayList<Integer>();
-            if (l == 1){
+            if (l == 1) {
                 a.add(131);
                 a.add(466);
             }
-            if (l == 2){
+            if (l == 2) {
                 a.add(159+3);
                 a.add(538-50);
                 
             }
-            if (l == 3){
+            if (l == 3) {
                 a.add(104-3);
                 a.add(538-50);
             }
-            if (l == 4){
+            if (l == 4) {
                 a.add(77-5);
                 a.add(610-100);
             }
-            if (l == 5){
+            if (l == 5) {
                 a.add(132);
                 a.add(610-100);
             }
@@ -327,26 +330,26 @@ public class Main extends JPanel implements KeyListener, ActionListener{
                 a.add(187+5);
                 a.add(610-100);
             }
-            if (l == 7){
+            if (l == 7) {
                 a.add(50-8);
                 a.add(682-150);
             }
-            if (l == 8){
+            if (l == 8) {
                 a.add(105-3);
                 a.add(682-150);
             }
-            if (l == 9){
+            if (l == 9) {
                 a.add(160+3);
                 a.add(682-150);
             }
-            if (l == 10){
+            if (l == 10) {
                 a.add(215+8);
                 a.add(682-150);
             }
             return a;
         }
 //////////////////////////////////////////STOPS THE BAR FROM MOVING//////////////////////////////
-    public int speedSelect(){
+    public int speedSelect() {
         //Sets the speed and difficulty of the game. 
         int a = 0;
         speed = user.cupCount;
@@ -362,41 +365,41 @@ public class Main extends JPanel implements KeyListener, ActionListener{
         if(speed == 0){a = 1;}
         return a;
     }      
-    public void spee(){
+    public void spee() {
         //Puts the bar in motion
         int a = speedSelect();
         if(sp){
-            if(barX > 490){
+            if(barX > 490) {
                 right = false;
                 barX = 488;
             }
-            if (barX < 120){
+            if (barX < 120) {
                 right = true;
                 barX = 122;
             }
-            if(right){
+            if(right) {
                 barX += a;
             }
-            if(right == false){
+            if(right == false) {
                 barX = barX - a;
             }
         }
     }
 /////////////////////////////////////////HANDLES KEYBOARD INPUTS////////////////////////////////
-    public void select(KeyEvent e){
+    public void select(KeyEvent e) {
         //Handles all the keyboard inputs made by the user
         char c = e.getKeyChar();
-        if (c == ' '){
+        if (c == ' ') {
             if(!testb){testb = true; uTurn = true;}
-            else{
+            else {
                 spaced();
             }  
         }
-        if(move && uTurn){
+        if(move && uTurn) {
             outBounds = false;
             if (c == '0') {
                 cup = 0;
-                if(user.rac[0].alive){
+                if(user.rac[0].alive) {
                     sp = true;
                     alreadyP = false;
                 }
@@ -407,41 +410,38 @@ public class Main extends JPanel implements KeyListener, ActionListener{
             }
             if (c == '1') {
                 cup = 1;
-                if(user.rac[1].alive){
+                if(user.rac[1].alive) {
                     sp = true;
                     alreadyP = false;
                 }
-                else{
+                else {
                     alreadyP = true;
                 }            
             }
             if (c == '2') {
                 cup = 2;
-                if(user.rac[2].alive){
+                if(user.rac[2].alive) {
                     sp = true;
                     alreadyP = false;
-                }
-                else{
+                } else {
                     alreadyP = true;
                 }            
             }
             if (c == '3') {
                 cup = 3;
-                if(user.rac[3].alive){
+                if(user.rac[3].alive) {
                     sp = true;
                     alreadyP = false;
-                }
-                else{
+                } else {
                     alreadyP = true;
                 }            
             }
             if (c == '4') {
                 cup = 4;
-                if(user.rac[4].alive){
+                if(user.rac[4].alive) {
                     sp = true;
                     alreadyP = false;
-                }
-                else{
+                } else {
                     alreadyP = true;
                 }            
             }
@@ -450,40 +450,36 @@ public class Main extends JPanel implements KeyListener, ActionListener{
                 if(user.rac[5].alive){
                     sp = true;
                     alreadyP = false;
-                }
-                else{
+                } else{
                     alreadyP = true;
                 }            
             }
             if (c == '6') {
                 cup = 6;
-                if(user.rac[6].alive){
+                if(user.rac[6].alive) {
                     sp = true;
                     alreadyP = false;
-                }
-                else{
+                } else{
                     alreadyP = true;
                     
                 }            
             }
             if (c == '7') {
                 cup = 7;
-                if(user.rac[7].alive){
+                if(user.rac[7].alive) {
                     sp = true;
                     alreadyP = false;
-                }
-                else{
+                } else {
                     alreadyP = true;
                 }            
             }
             if (c == '8') {
                 cup = 8;
-                if(user.rac[8].alive){
+                if(user.rac[8].alive) {
                     sp = true;
                     alreadyP = false;
 
-                }
-                else{
+                } else {
                     alreadyP = true;
                 }            
             }
@@ -492,17 +488,16 @@ public class Main extends JPanel implements KeyListener, ActionListener{
                 if(user.rac[9].alive){
                     sp = true;
                     alreadyP = false;
-                }
-                else{
+                } else {
                     alreadyP = true;
                 }
             }
             cupSelected = true;
         }
     }
-    public void evolve(){
+    public void evolve() {
         //While this method does not function as it was initially supposed to as the balls move to fast. It properly ends the users turn and starts the computers. 
-        if (sy < b){
+        if (sy < b) {
             shot = false;
             hit = false;
             shooting = false;
@@ -512,37 +507,37 @@ public class Main extends JPanel implements KeyListener, ActionListener{
             barX = 305;
             cupSelected = false;
         }
-        if (cup == 6){
+        if (cup == 6) {
             a=209;
             b=105;
             sx = 209;
             sy -= sy*7*.25;
         }
-        if (cup == 7){
+        if (cup == 7) {
             a=271;
             b=105;
             sx -= sx*.25;
             sy -= sy*39*.25; 
         }
-        if (cup == 8){
+        if (cup == 8) {
             a=330;
             b=105;
             sx += sx*.25; 
             sy -= sy*12*.25;
         }
-        if (cup == 9){
+        if (cup == 9) {
             a=388;
             b=105;
             sx += sx*.25; 
             sy -= sy*12*.25;
         }
-        if (cup == 3){
+        if (cup == 3) {
             a=235;
             b=125;
             sx -= sx*.25; 
             sy -= sy*10.5*.25;
         }
-        if (cup == 4){
+        if (cup == 4) {
             a=300;
             b=125;
             sx += sx*.25; 

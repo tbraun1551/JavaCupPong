@@ -41,6 +41,7 @@ import java.util.ArrayList;
 
 
 public class Main extends JPanel implements KeyListener, ActionListener {
+
     public static final int WIDTH = 610;
     public static final int HEIGHT = 900;
     public static final int FPS = 60;
@@ -174,9 +175,11 @@ public class Main extends JPanel implements KeyListener, ActionListener {
         g.drawLine(barX, 660, barX, 710);
 
         //////////////////////////////////////RACK DRAWER///////////////////////
-        for(cup : user.rac) {
-            System.outt.println("testing this for loop");
+        /*
+        for(Cup t: user.rac) {
+            System.out.println("testing this for loop");
         }
+        */
         for (int i = 9; i >=0 ; i--) {
             if(user.rac[i].alive){
                 ArrayList<Integer> a = locationUSER(user.rac[i].location);
@@ -241,10 +244,10 @@ public class Main extends JPanel implements KeyListener, ActionListener {
             g.setColor(Color.BLACK);
             g.drawString("It took you " + (endTime - startTime) + " to win.", 50, 700);
 
-         }
-         if(uWin) {
-             g.drawImage(youwin, 0, 0, this);
-         }
+        }
+        if(uWin) {
+            g.drawImage(youwin, 0, 0, this);
+        }
     }
     
 //////////////////////////////////////////////KEYLISTENER METHODS///////////////////////////////
@@ -368,7 +371,7 @@ public class Main extends JPanel implements KeyListener, ActionListener {
     public void spee() {
         //Puts the bar in motion
         int a = speedSelect();
-        if(sp){
+        if(sp) {
             if(barX > 490) {
                 right = false;
                 barX = 488;
@@ -390,8 +393,9 @@ public class Main extends JPanel implements KeyListener, ActionListener {
         //Handles all the keyboard inputs made by the user
         char c = e.getKeyChar();
         if (c == ' ') {
-            if(!testb){testb = true; uTurn = true;}
-            else {
+            if(!testb){
+                testb = true; uTurn = true;
+            } else {
                 spaced();
             }  
         }
